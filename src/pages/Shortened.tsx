@@ -1,13 +1,40 @@
-import { useParams, Link } from 'react-router-dom'
+import { useState } from 'react'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { JSX } from 'react'
+import { generateUniqueCode } from '../utils/generateCode'
 
-export default function Shortened() {
+// In-memory URL store for demo (replace with database in production)
+const urlStore = new Map<string, string>()
+
+export default function Shortener() {
   const { code } = useParams<{ code: string }>()
+  const [longUrl, setLongUrl] = useState<string>('')
+  const [error, setError] = useState<string>('')
+  const navigate = useNavigate()
 
-  if (!code) return null
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setError('')
 
-  const shortUrl = `${window.location.origin}/go/${code}`
+    // Basic URL validation
+    try {
+      new URL(longUrl)
+    } catch {
+      setError('Please enter a valid URL')
+      return
+    }
+
+    // Generate unique code
+    const shortCode = generateUniqueCode()
+    urlStore.set(shortCode, longUrl) // Store mapping
+    navigate(`/go/${shortCode}`) // Redirect to shortened URL page
+  }
+
+  const shortUrl: string | null = code
+    ? `${window.location.origin}/go/${code}`
+    : null
+  const originalUrl: string | undefined = code ? urlStore.get(code) : undefined
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
@@ -18,30 +45,72 @@ export default function Shortened() {
         transition={{ delay: 0.2 }}
       >
         <div className="p-6">
-          <h2 className="mb-4 text-center text-2xl font-bold text-indigo-700">
-            Your Short Link
-          </h2>
-
-          <div className="text-center">
-            <a
-              href={shortUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="break-all text-lg font-medium text-indigo-600 underline"
-            >
-              {shortUrl}
-            </a>
-          </div>
-
-          <Link
-            to="/"
-            className="mt-6 block w-full rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-center font-medium text-white shadow-md transition hover:from-purple-700 hover:to-indigo-700"
-          >
-            Shorten Another URL
-          </Link>
+          {!code ? (
+            <>
+              <h2 className="mb-4 text-center text-2xl font-bold text-indigo-700">
+                Shorten Your URL
+              </h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input
+                  type="url"
+                  value={longUrl}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setLongUrl(e.target.value)
+                  }
+                  placeholder="Enter your URL"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  required
+                />
+                {error && <p className="text-sm text-red-500">{error}</p>}
+                <button
+                  type="submit"
+                  className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 font-medium text-white shadow-md transition hover:from-purple-700 hover:to-indigo-700"
+                >
+                  Shorten URL
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <h2 className="mb-4 text-center text-2xl font-bold text-indigo-700">
+                Your Short Link
+              </h2>
+              <div className="text-center">
+                {shortUrl && (
+                  <Link
+                    to={shortUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="break-all text-lg font-medium text-indigo-600 underline"
+                  >
+                    {shortUrl}
+                  </Link>
+                )}
+                {originalUrl && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    Redirects to:{' '}
+                    <a
+                      href={originalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-indigo-600 underline"
+                    >
+                      {originalUrl}
+                    </a>
+                  </p>
+                )}
+              </div>
+              <Link
+                to="/"
+                className="mt-6 block w-full rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-center font-medium text-white shadow-md transition hover:from-purple-700 hover:to-indigo-700"
+              >
+                Shorten Another URL
+              </Link>
+            </>
+          )}
         </div>
 
-        <div className="flex justify-center space-x-4 bg-gray-50 px-6 py-3 text-sm">
+        <div className="justify酷ܴ flex justify-center space-x-4 bg-gray-50 px-6 py-3 text-sm">
           <Feature icon="secure" label="Secure" />
           <Feature icon="bolt" label="Fast" />
           <Feature icon="clock" label="Reliable" />
