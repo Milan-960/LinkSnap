@@ -1,11 +1,70 @@
-# React + TypeScript + Vite
+# 🔗 Link Shortener
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, modern, and fully client-side link shortener built with React 19, TypeScript, Tailwind CSS, and Vite. Easily shorten URLs, view your history, sort and search links, and enjoy smooth animations powered by Framer Motion. All data is securely stored in your browser using localStorage—no backend needed!
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔗 Shorten Links: Create short URLs with a 6-character code.
+
+- 🗃 History: View all previously shortened links with original URLs.
+
+- 🔍 Search & Sort: Filter links by code or original URL, and sort by date or code.
+
+- 📋 Copy to Clipboard: Copy short links in a click with visual feedback.
+
+- 🧹 Delete & Clear: Delete individual links or clear the entire history.
+
+- 📄 Pagination: Paginate your history with customizable items per page (5, 10, 15, 20, 25).
+
+- 🌙 Responsive Design: Fully responsive and mobile-friendly UI.
+
+- 🎬 Smooth Transitions: Page and element transitions using Framer Motion.
+
+## 🚀 Tech Stack
+
+- ⚛️ React 19
+
+- 🛠️ TypeScript
+
+- 💨 Tailwind CSS 3
+
+- ✨ Framer Motion
+
+- ⚡ Vite
+
+- 🧭 React Router v7
+
+## Clone the repo
+
+```bash
+git clone https://github.com/Milan-960/LinkSnap.git
+
+cd LinkSnap
+```
+
+## 📦 Install dependencies
+
+```bash
+npm install
+```
+
+## 🔧 Start development server
+
+```bash
+npm run dev
+```
+
+## 🏗 Build for production
+
+````bash
+npm run build
+```
+
+# Preview production build
+
+```bash
+npm run preview
+````
 
 ## Expanding the ESLint configuration
 
