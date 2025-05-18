@@ -16,14 +16,14 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/shortened/:code" element={<Shortened />} />
-          <Route path="/go/:code" element={<Redirect />} />
+          {/* <Route path="/go/:code" element={<Redirect />} /> */}
           <Route path="/about" element={<About />} />
           <Route path="/link-history" element={<History />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* Routes without layout */}
-        {/* <Route path="/go/:code" element={<Redirect />} /> */}
+        <Route path="/go/:code" element={<Redirect />} />
       </Routes>
     </AnimatePresence>
   )
