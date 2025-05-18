@@ -117,7 +117,7 @@ export default function History() {
   }
 
   // Add a max height to the table container when there are many rows
-  const tableMaxHeight = history.length > 8 ? 'max-h-96' : ''
+  // const tableMaxHeight = history.length > 8 ? 'max-h-96' : ''
 
   return (
     <div className="min-h-screen bg-white pt-16">
