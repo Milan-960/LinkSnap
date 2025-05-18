@@ -13,7 +13,7 @@ export default function Navbar() {
   ]
 
   return (
-   <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-purple-700 to-indigo-800 text-white shadow-lg">
+    <nav className="fixed left-0 top-0 z-50 w-full bg-gradient-to-r from-purple-700 to-indigo-800 text-white shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
@@ -46,7 +46,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link
-                to={"https://github.com/yourusername/react-link-shortener"}
+                to={'https://github.com/Milan-960/LinkSnap'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-md px-3 py-2 text-sm font-medium text-indigo-100 hover:bg-indigo-600"
@@ -111,7 +111,7 @@ export default function Navbar() {
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+          <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -127,7 +127,7 @@ export default function Navbar() {
               </Link>
             ))}
             <a
-              href="https://github.com/yourusername/react-link-shortener"
+              href="https://github.com/Milan-960/LinkSnap"
               target="_blank"
               rel="noopener noreferrer"
               className="block rounded-md px-3 py-2 text-base font-medium text-indigo-100 hover:bg-indigo-600"
